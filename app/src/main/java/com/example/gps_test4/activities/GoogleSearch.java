@@ -1,14 +1,11 @@
 package com.example.gps_test4.activities;
 
-import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,7 +17,6 @@ import com.example.gps_test4.model._Location;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
@@ -34,7 +30,6 @@ public class GoogleSearch extends AppCompatActivity implements OnMapReadyCallbac
     Spinner spinner_dropdown;
     TextView text_location;
     TextView text_latlng;
-
 
     /*
      * onCreate Method - Activity 생명 주기로 따지자면 Activity가 실행된 후 가장 먼저 호출되는 메서드
@@ -57,7 +52,7 @@ public class GoogleSearch extends AppCompatActivity implements OnMapReadyCallbac
         spinner_dropdown = findViewById(R.id.code_spinner);
 
         spinner_dropdown.setAdapter(new LocationArrayAdapter(this, locations));
-        text_location = findViewById(R.id.location_text);
+        text_location = findViewById(R.id.code_administrative_text);
         text_latlng = findViewById(R.id.latitudeAndLongitude_text);
 
         // SupportMapFragment =

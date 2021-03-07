@@ -13,19 +13,4 @@
         android:textAlignment="center"
         android:textColor="@color/black"/>
 
-    <TextView
-        android:id="@+id/spinner_text_gu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16dp"
-        android:textColor="@color/black"/>
-
-
-    <TextView
-        android:id="@+id/spinner_text_dong"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16dp"
-        android:textColor="@color/black"/>
-
 </LinearLayout>
