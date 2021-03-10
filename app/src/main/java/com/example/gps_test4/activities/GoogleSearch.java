@@ -26,19 +26,16 @@ public class GoogleSearch extends AppCompatActivity implements OnMapReadyCallbac
 
     _LocationController locationController;
     GoogleMapController googleMapController;
-    ArrayList<_Location> locations;
-    Spinner spinner_dropdown;
-    TextView text_location;
+    ArrayList<_Location> locations_administrative;
+    ArrayList<_Location> locations_court;
+    Spinner spinner_city, spinner_gu, spinner_dong;
+    TextView text_location, location_administrative_text;
+    TextView code_court_text, location_court_text;
     TextView text_latlng;
+
 
     /*
      * onCreate Method - Activity 생명 주기로 따지자면 Activity가 실행된 후 가장 먼저 호출되는 메서드
-     * 필수적으로 구현해야 한다.
-     * 전체 수명 주기 동안 단 한 번만 발생해야 하는 애플리케이션 시작 로직을 실행
-     * 데이터를 목록에 바인딩, 일부 클래스 범위 변수를 인스턴스화 가능.
-     * 파라미터로 갖는 saveInstanceState = 활동 이전의 상태가 포함된 Bundle
-     * 처음 생성된 활동인 경우 Bundle 객체의 값은 null이다.
-     * Bundle? 여러가지 타입의 값을 저장하는 Map Class
      * 자세한 사항은 https://www.crocus.co.kr/1560 링크 참고
      */
     @Override
@@ -47,11 +44,21 @@ public class GoogleSearch extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_google_search);
 
         locationController = new _LocationController(this);
-        locations = locationController.getLocationData();
+        locations_administrative = locationController.getLocationData_administrative();
+        //locations_court = locationController.getLocationData_court();
 
-        spinner_dropdown = findViewById(R.id.code_spinner);
+        // Spinner
+        spinner_city = findViewById(R.id.spinner_city);
+        spinner_gu = findViewById(R.id.spinner_gu);
+        spinner_dong = findViewById(R.id.spinner_dong);
 
-        spinner_dropdown.setAdapter(new LocationArrayAdapter(this, locations));
+        code_court_text = findViewById(R.id.code_court_text);
+        location_court_text = findViewById(R.id.location_court_text);
+        location_administrative_text = findViewById(R.id.location_administrative_text);
+
+        // 첫번째 스피너에 행정구역명을 붙임
+        spinner_city.setAdapter(new LocationArrayAdapter(this, locations_administrative));
+
         text_location = findViewById(R.id.code_administrative_text);
         text_latlng = findViewById(R.id.latitudeAndLongitude_text);
 
@@ -70,7 +77,7 @@ public class GoogleSearch extends AppCompatActivity implements OnMapReadyCallbac
     public void setEvent(){
         Log.d("CALL_SETEVENT : ","OK");
 
-        spinner_dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner_city.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("SPINNER_SELECTED : ", " : " + position);
@@ -88,8 +95,12 @@ public class GoogleSearch extends AppCompatActivity implements OnMapReadyCallbac
                     Log.d("SPINNER_RESULT = ", ":" + location_value);
 
                     text_location.setText(location_code);
+                    //text_location.setText(locationController.classify_city().toString());
                     googleMapController.Search(location_value);
                     text_latlng.setText(googleMapController.latitudeLongitude.toString());
+                    //location_administrative_text.setText(_city+" "+_gu+" "+_dong);
+                    location_administrative_text.setText(location_value);
+
                 }
             }
             @Override

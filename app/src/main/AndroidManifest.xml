@@ -3,6 +3,7 @@
     package="com.example.gps_test4">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,6 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GPS_Test4">
 
+        <uses-library android:name="org.apache.http.legacy"
+            android:required="false" />
 
         <!--API KEY https://steemit.com/kr/@etainclub/google-map-api-key-->
         <meta-data
@@ -23,6 +26,7 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
         </activity>
     </application>

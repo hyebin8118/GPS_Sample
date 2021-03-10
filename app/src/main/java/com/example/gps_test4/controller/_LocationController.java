@@ -9,10 +9,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class _LocationController {
-    final String FILE_NAME = "administractive_code.xls";
-    final String COLUMN_CODE = "행정코드";
-    final String COLUMN_LOCATION = "행정구역명";
-    final String COLUMN_ISEXIST = "여부";
+
+    // 행정코드 파일
+    final String FILE_NAME_ADMINISTRATIVE = "administrative_code.xls";
+    final String COLUMN_CODE_ADMINISTRATIVE = "행정코드";
+    final String COLUMN_LOCATION_ADMINISTRATIVE = "행정구역명";
+    final String COLUMN_ISEXIST_ADMINISTRATIVE = "여부";
+
+    // 법정코드 파일
+    final String FILE_NAME_COURT = "court_code.xls";
+    final String COLUMN_CODE_COURT = "법정동코드";
+    final String COLUMN_LOCATION_COURT = "법정동명";
+    final String COLUMN_ISEXIST_COURT = "여부";
 
     ExcelController excelController;
 
@@ -20,25 +28,24 @@ public class _LocationController {
         this.excelController = new ExcelController(context);
     }
 
-    public ArrayList<_Location> getLocationData(){
+    public ArrayList<_Location> getLocationData_administrative(){
 
         // _Location model Class : 행정코드, 행정구역명, 여부의 데이터를 담는 model Class
-        ArrayList<_Location> locations = new ArrayList<_Location>();
-        ArrayList<HashMap<String, String>> excel_arrayList = this.excelController.readExcel(FILE_NAME);
+        ArrayList<_Location> locations = new ArrayList();
+        ArrayList<HashMap<String, String>> excel_arrayList = this.excelController.readExcel(FILE_NAME_ADMINISTRATIVE);
 
         // forEach() -- Android Studio SDK version 24부터 지원 (gradle -> minSDK version 29로 변경
-        // HashMap<String, String>으로 되어있는 데이터를 Location Class Model로 맵핑하는 과정
-        // excel_arrayList의 원소를 각각 꺼내 (a_data) 각각을 Location Class 객체로 맵핑
-        // TODO 숙제2 : 0부터 100까지 가지고 있는 ArrayList 를 만들고, 하나는 for 문 으로 출력 / 나머지 하나는 forEach 문으로 출력해 보기
+        // HashMap<String, String>으로 되어있는 데이터를 Location Class Model 로 맵핑하는 과정
+        // excel_arrayList 의 원소를 각각 꺼내 (a_data) 각각을 Location Class 객체로 맵핑
         excel_arrayList.forEach(a_data->{
             _Location a_location = new _Location();
 
-            String code = a_data.get(COLUMN_CODE);
-            String location = a_data.get(COLUMN_LOCATION);
-            String isExist = a_data.get(COLUMN_ISEXIST);
+            String code = a_data.get(COLUMN_CODE_ADMINISTRATIVE);
+            String location = a_data.get(COLUMN_LOCATION_ADMINISTRATIVE);
+            String isExist = a_data.get(COLUMN_ISEXIST_ADMINISTRATIVE);
 
-            a_location.setLocation(location);
             a_location.setCode(code);
+            a_location.setLocation(location);
 
             if(isExist != null && isExist.equals("Y")){
                 a_location.setIsExist(true);
@@ -50,4 +57,30 @@ public class _LocationController {
         });
         return locations;
     }
+
+
+    // 어디서든 접근 가능한 getLocationData_court()메서드를 생성한다. 이 메서드는 _Location 클래스를 형으로 갖는 ArrayList 를 반환해야 한다.
+    /*public ArrayList<_Location> getLocationData_court(){
+        ArrayList<_Location> locations = new ArrayList<>();
+        ArrayList<HashMap<String, String>> excel_arrayList = this.excelController.readExcel(FILE_NAME_COURT);
+
+        excel_arrayList.forEach(a_data->{
+            _Location a_location = new _Location();
+
+            String code = a_data.get(COLUMN_CODE_COURT);
+            String location = a_data.get(COLUMN_LOCATION_COURT);
+            String isExist = a_data.get(COLUMN_ISEXIST_COURT);
+
+            a_location.setCode(code);
+            a_location.setLocation(location);
+
+            if(isExist != null && isExist.equals("Y")){
+                a_location.setIsExist(true);
+            } else{
+                a_location.setIsExist(false);
+            }
+            locations.add(a_location);
+        });
+        return locations;
+    }*/
 }
