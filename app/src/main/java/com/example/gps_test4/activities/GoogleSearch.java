@@ -44,7 +44,6 @@ public class GoogleSearch extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_google_search);
 
         locationController = new _LocationController(this);
-        locations_administrative = locationController.getLocationData_administrative();
         //locations_court = locationController.getLocationData_court();
 
         // Spinner

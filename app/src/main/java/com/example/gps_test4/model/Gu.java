@@ -7,7 +7,7 @@ public class Gu extends LocationData {
     private ArrayList<Dong> dongList;
 
     public ArrayList<Dong> getDongList(){
-        return getDongList();
+        return dongList;
     }
 
     // 동을 동 리스트에 넣어주는 세터 메서드
