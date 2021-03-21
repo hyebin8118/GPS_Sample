@@ -19,36 +19,23 @@ import java.util.List;
 public class GoogleMapController {
     Context context;
     private GoogleMap googleMap;
-    public LatLng latitudeLongitude;
 
     public GoogleMapController(Context context, GoogleMap googleMap){
         this.context = context;
         this.googleMap = googleMap;
     }
     public void Search(String address){
-        Location location = getLocationFromAddress(address);
-
-        // 위도와 경도를 받을 변수 latitudeLongitude 초기화
-        latitudeLongitude = new LatLng(location.getLatitude(), location.getLongitude());
-
+        Location loc = getLocationFromAddress(address);
+        LatLng latitudeLongitude = new LatLng(loc.getLatitude(), loc.getLongitude());
         setMarker(latitudeLongitude);
-
-        // 카메라 좌표를 마커가 찍힌 곳으로 이동
-        // newLatLngZoom 인자로는 위치(위도 및 경도)와 Zoom Level 이 들어간다.
-        // 1 : World, 5 : Landmass / continent, 10 : City, 15 : Streets, 20: Buildings
-        // 자세한 사항은 https://breadboy.tistory.com/282 참고
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latitudeLongitude, 18));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latitudeLongitude, 16));
     }
-
-    // GeoCoding 이란 고유 명칭(주소, 산, 호수의 이름 등)을 가지고 위도와 경도의 좌표값을 얻는 것
-    // GeoCoder 를 import 하면 위도와 경도를 가져와 사용할 수 있다.
     public Location getLocationFromAddress(String address){
         Geocoder geocoder = new Geocoder(context);
         List<Address> addressList;
         Location location = new Location("");
 
         try{
-            Log.d("Address_Length : ",address);
             addressList = geocoder.getFromLocationName(address, address.length());
             if(addressList == null || addressList.size()==0){
                 return null;
@@ -63,8 +50,6 @@ public class GoogleMapController {
         return location;
 
     }
-
-    // 지도(위도, 경도에 맞춰)에 마커를 생성
     public void setMarker(LatLng latLng){
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
